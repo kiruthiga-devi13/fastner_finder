@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Nebula Fastener Finder</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<div class="intro-overlay" id="introOverlay">
+  <div class="intro-card">
+    <button id="introCloseX" class="intro-close-x" aria-label="Close">✕</button>
+
+    <div class="intro-eyebrow">WELCOME TO</div>
+    <h1 class="intro-title">Nebula <span class="intro-accent-word">Fastener Finder</span></h1>
+    <div class="intro-tagline">DETECT · MEASURE · IDENTIFY · INSPECT</div>
+    <p class="intro-lead">
+      Point your camera at a mechanical part — or upload a photo — to get real dimensions,
+      component type, and standard fastener specs, instantly.
+    </p>
+
+    <div class="intro-features">
+      <div class="intro-feature">
+        <div class="intro-feature-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+        </div>
+        <div class="intro-feature-title">Capture or Upload</div>
+        <div class="intro-feature-sub">Photo, video, live scan, or upload an image</div>
+      </div>
+      <div class="intro-feature">
+        <div class="intro-feature-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        </div>
+        <div class="intro-feature-title">Calibrate &amp; Measure</div>
+        <div class="intro-feature-sub">Real-world scale from a coin, card, or A4 sheet</div>
+      </div>
+      <div class="intro-feature">
+        <div class="intro-feature-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M9 15h6"/><path d="M9 11h6"/></svg>
+        </div>
+        <div class="intro-feature-title">Inspect &amp; Match</div>
+        <div class="intro-feature-sub">Defect check, plus ISO fastener lookup</div>
+      </div>
+      <div class="intro-feature">
+        <div class="intro-feature-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+        </div>
+        <div class="intro-feature-title">Get a Report</div>
+        <div class="intro-feature-sub">Exportable PDF with confidence levels</div>
+      </div>
+    </div>
+
+    <label class="intro-checkbox">
+      <input type="checkbox" id="introDontShow" /> Don't show this again on this device
+    </label>
+    <button id="introCloseBtn" class="intro-cta">Get Started <span aria-hidden="true">→</span></button>
+    <div class="intro-dots"><span class="active"></span><span></span><span></span><span></span></div>
+  </div>
+</div>
+
+<header class="topbar">
+  <div class="brand">
+    <span class="brand-mark">◈</span>
+    <span class="brand-name">Nebula&nbsp;Fastener&nbsp;Finder</span>
+  </div>
+  <div class="brand-sub">AI-assisted mechanical inspection · smartphone camera, no dedicated hardware</div>
+</header>
+
+<main class="layout">
+
+  <!-- LEFT: camera / image viewport -->
+  <section class="viewport-panel">
+    <div class="viewport" id="viewport">
+      <video id="video" autoplay playsinline muted></video>
+      <canvas id="overlay"></canvas>
+      <canvas id="workCanvas" hidden></canvas>
+      <img id="stillFrame" hidden />
+
+      <div class="viewport-hint" id="viewportHint">
+        Point the camera at the component. Include a reference object (coin, ID card, or A4 sheet) in frame.
+      </div>
+    </div>
+
+    <div class="capture-modes" role="tablist" aria-label="Capture mode">
+      <button class="mode-btn active" data-mode="photo">Photo</button>
+      <button class="mode-btn" data-mode="video">Video</button>
+      <button class="mode-btn" data-mode="live">Live</button>
+    </div>
+
+    <div class="capture-controls">
+      <select id="cameraSelect" class="select" title="Camera"></select>
+      <button id="captureBtn" class="btn btn-primary">Capture</button>
+      <button id="uploadBtn" class="btn btn-ghost">Upload image…</button>
+      <input id="uploadInput" type="file" accept="image/*" hidden />
+      <button id="retakeBtn" class="btn btn-ghost" hidden>Retake</button>
+      <button id="addViewBtn" class="btn btn-ghost" hidden>+ Add another view</button>
+    </div>
+  </section>
+
+  <!-- RIGHT: process rail -->
+  <aside class="rail">
+    <div class="rail-heading">Inspection pipeline</div>
+    <div class="rail-subheading">Each numbered step runs independently — press a step's number or its button any time its inputs are ready.</div>
+
+    <ol class="steps" id="steps">
+      <li class="step" data-step="capture">
+        <button class="step-num" data-action="capture" title="Capture using the current mode">1</button>
+        <div class="step-body">
+          <div class="step-title">Capture</div>
+          <div class="step-detail">Take a photo, record video, scan live, or upload an existing image.</div>
+        </div>
+      </li>
+      <li class="step" data-step="calibrate">
+        <button class="step-num" data-action="calibrate" title="Run auto-calibration">2</button>
+        <div class="step-body">
+          <div class="step-title">Calibrate scale</div>
+          <div class="step-detail" id="calibDetail">Waiting for a capture…</div>
+          <div class="calib-controls" id="calibControls" hidden>
+            <label class="field-label">Reference in frame</label>
+            <select id="refSelect" class="select">
+              <option value="card" data-mm="85.60">ID / credit card (85.60 mm)</option>
+              <option value="a4"   data-mm="210.0">A4 sheet, short edge (210 mm)</option>
+              <option value="coin1" data-mm="25.0">₹1 coin (25.0 mm)</option>
+              <option value="coin5" data-mm="23.0">₹5 coin (23.0 mm)</option>
+              <option value="coin10" data-mm="27.0">₹10 coin (27.0 mm)</option>
+              <option value="custom" data-mm="">Custom object…</option>
+            </select>
+            <input id="customMm" class="text-input" type="number" placeholder="known width in mm" hidden />
+            <div class="btn-row">
+              <button id="autoCalibBtn" class="btn btn-small">Auto-detect reference</button>
+              <button id="manualCalibBtn" class="btn btn-small btn-ghost">Set manually (2 points)</button>
+            </div>
+            <div class="calib-result" id="calibResult"></div>
+          </div>
+        </div>
+      </li>
+      <li class="step" data-step="identify">
+        <button class="step-num" data-action="identify" title="Identify the component">3</button>
+        <div class="step-body">
+          <div class="step-title">Identify component</div>
+          <div class="step-hint">Works on any photo — no reference object or calibration needed.</div>
+          <button id="identifyBtn" class="btn btn-small" disabled>Identify component</button>
+          <div class="step-detail" id="idDetail">—</div>
+        </div>
+      </li>
+      <li class="step" data-step="measure">
+        <button class="step-num" data-action="measure" title="Detect and measure">4</button>
+        <div class="step-body">
+          <div class="step-title">Measure</div>
+          <div class="step-hint">Requires step 2 (calibration) first — real-world units need a scale reference.</div>
+          <button id="measureBtn" class="btn btn-small" disabled>Detect &amp; measure</button>
+          <div class="measure-table" id="measureTable"></div>
+        </div>
+      </li>
+      <li class="step" data-step="inspect">
+        <button class="step-num" data-action="inspect" title="Run defect inspection">5</button>
+        <div class="step-body">
+          <div class="step-title">Inspect</div>
+          <button id="inspectBtn" class="btn btn-small" disabled>Run inspection</button>
+          <div class="inspect-result" id="inspectResult">—</div>
+        </div>
+      </li>
+      <li class="step" data-step="fastener">
+        <button class="step-num" data-action="fastener" title="Match against fastener table">6</button>
+        <div class="step-body">
+          <div class="step-title">Fastener match</div>
+          <button id="fastenerBtn" class="btn btn-small" disabled>Match fastener</button>
+          <div class="fastener-result" id="fastenerResult">—</div>
+        </div>
+      </li>
+      <li class="step" data-step="report">
+        <button class="step-num" data-action="report" title="Generate the PDF report">7</button>
+        <div class="step-body">
+          <div class="step-title">Report</div>
+          <button id="reportBtn" class="btn btn-primary btn-small" disabled>Generate PDF report</button>
+        </div>
+      </li>
+    </ol>
+
+    <div class="legend">
+      <div class="legend-row"><span class="dot dot-measured"></span> Directly measured</div>
+      <div class="legend-row"><span class="dot dot-estimated"></span> AI / heuristic estimate</div>
+      <div class="legend-row"><span class="dot dot-matched"></span> Matched to standard</div>
+    </div>
+
+    <div class="views-strip" id="viewsStrip"></div>
+  </aside>
+
+</main>
+
+<div class="toast" id="toast" hidden></div>
+
+<!-- OpenCV.js (classical CV: contours, Hough, edges) -->
+<script async src="https://docs.opencv.org/4.9.0/opencv.js" onload="window.cvReady=true" id="opencvScript"></script>
+<!-- jsPDF (client-side PDF report) -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+<script src="js/state.js"></script>
+<script src="js/camera.js"></script>
+<script src="js/cvutil.js"></script>
+<script src="js/calibration.js"></script>
+<script src="js/identify.js"></script>
+<script src="js/measurement.js"></script>
+<script src="js/inspect.js"></script>
+<script src="js/fastener-db.js"></script>
+<script src="js/report.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>
